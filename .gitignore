@@ -1,0 +1,10 @@
+# File sistem operasi
+.DS_Store
+Thumbs.db
+
+# File editor
+.vscode/
+
+# File sementara
+*.tmp
+*.log
