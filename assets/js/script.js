@@ -1,1 +1,1 @@
-
+// JavaScript utama sistem inventaris
