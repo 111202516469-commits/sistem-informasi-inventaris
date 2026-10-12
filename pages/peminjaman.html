@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peminjaman - InventarisKu</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <h2>⬡ InventarisKu</h2>
+        <nav>
+            <a href="dashboard.html">⌂ Dashboard</a>
+            <a href="kategori.html">▤ Kategori Barang</a>
+            <a href="barang.html">▣ Data Barang</a>
+            <a href="peminjaman.html" class="active">◷ Peminjaman</a>
+            <a href="pengguna.html">♙ Pengguna</a>
+            <a href="login.html" class="logout">⇥ Logout</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <button type="button" id="menuToggle">☰</button>
+            <span>Admin</span>
+        </header>
+
+        <section class="content">
+            <div class="welcome">
+                <h1>Data Peminjaman</h1>
+                <p>Catat dan kelola peminjaman barang inventaris.</p>
+                <p id="tanggalWaktu"></p>
+            </div>
+
+            <section class="panel">
+                <h2>Form Peminjaman</h2>
+                <form id="formPeminjaman">
+                    <div class="form-group">
+                        <label for="namaPeminjam">Nama Peminjam</label>
+                        <input id="namaPeminjam" required
+                               placeholder="Masukkan nama peminjam">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="namaBarang">Nama Barang</label>
+                        <input id="namaBarang" required
+                               placeholder="Masukkan nama barang">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jumlah">Jumlah Dipinjam</label>
+                        <input id="jumlah" type="number" min="1" required
+                               placeholder="Masukkan jumlah">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tanggal">Tanggal Peminjaman</label>
+                        <input id="tanggal" type="date" required>
+                    </div>
+
+                    <button class="button" type="submit">+ Tambah Peminjaman</button>
+                    <button class="button" type="reset">Kosongkan</button>
+                    <p id="pesan"></p>
+                </form>
+            </section>
+
+            <section class="panel">
+                <h2>Daftar Peminjaman</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Nama Peminjam</th>
+                                <th>Nama Barang</th>
+                                <th>Jumlah</th>
+                                <th>Tanggal</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="daftarPeminjaman"></tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </main>
+</div>
+
+<script src="../assets/js/script.js"></script>
+<script>
+const kunci = "inventarisku_peminjaman";
+let dataPeminjaman = JSON.parse(localStorage.getItem(kunci) || "[]");
+
+const form = document.getElementById("formPeminjaman");
+const daftar = document.getElementById("daftarPeminjaman");
+const pesan = document.getElementById("pesan");
+
+function simpan() {
+    localStorage.setItem(kunci, JSON.stringify(dataPeminjaman));
+}
+
+function tampilkan() {
+    daftar.replaceChildren();
+
+    dataPeminjaman.forEach((item, index) => {
+        const baris = document.createElement("tr");
+
+        [index + 1, item.nama, item.barang, item.jumlah, item.tanggal]
+            .forEach(nilai => {
+                const sel = document.createElement("td");
+                sel.textContent = nilai;
+                baris.appendChild(sel);
+            });
+
+        const kolomAksi = document.createElement("td");
+        const tombol = document.createElement("button");
+        tombol.type = "button";
+        tombol.textContent = "Hapus";
+        tombol.className = "button";
+        tombol.onclick = () => {
+            if (confirm("Hapus catatan peminjaman ini?")) {
+                dataPeminjaman.splice(index, 1);
+                simpan();
+                tampilkan();
+                pesan.textContent = "Catatan peminjaman dihapus.";
+            }
+        };
+
+        kolomAksi.appendChild(tombol);
+        baris.appendChild(kolomAksi);
+        daftar.appendChild(baris);
+    });
+}
+
+form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const item = {
+        nama: document.getElementById("namaPeminjam").value.trim(),
+        barang: document.getElementById("namaBarang").value.trim(),
+        jumlah: Number(document.getElementById("jumlah").value),
+        tanggal: document.getElementById("tanggal").value
+    };
+
+    if (!item.nama || !item.barang || !item.tanggal ||
+        !Number.isInteger(item.jumlah) || item.jumlah < 1) {
+        pesan.textContent = "Periksa kembali semua isian.";
+        return;
+    }
+
+    dataPeminjaman.push(item);
+    simpan();
+    tampilkan();
+    form.reset();
+    pesan.textContent = "Catatan peminjaman berhasil ditambahkan.";
+});
+
+tampilkan();
+</script>
+</body>
+</html>
