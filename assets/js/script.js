@@ -26,7 +26,6 @@ function tampilkanTanggalWaktu() {
 tampilkanTanggalWaktu();
 setInterval(tampilkanTanggalWaktu, 1000);
 
-// 3. Tombol untuk membuka dan menutup sidebar
 const tombolMenu = document.getElementById("menuToggle");
 
 if (tombolMenu) {
