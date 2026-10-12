@@ -1,7 +1,3 @@
-
-/* JAVASCRIPT UTAMA SISTEM INVENTARIS */
-
-// 1. Menampilkan tanggal dan waktu
 function tampilkanTanggalWaktu() {
     const elemenWaktu = document.getElementById("tanggalWaktu");
 
@@ -27,7 +23,6 @@ function tampilkanTanggalWaktu() {
     elemenWaktu.textContent = tanggal + " | " + waktu;
 }
 
-// 2. Memperbarui jam setiap detik
 tampilkanTanggalWaktu();
 setInterval(tampilkanTanggalWaktu, 1000);
 
@@ -44,7 +39,6 @@ if (tombolMenu) {
     });
 }
 
-// 4. Validasi form agar kolom wajib diisi
 document.querySelectorAll("form").forEach(function (form) {
     form.addEventListener("submit", function (event) {
         const kolomWajib = form.querySelectorAll("[required]");
@@ -64,7 +58,6 @@ document.querySelectorAll("form").forEach(function (form) {
     });
 });
 
-// 5. Pesan konfirmasi sebelum menghapus data
 document.querySelectorAll(".btn-hapus").forEach(function (tombol) {
     tombol.addEventListener("click", function (event) {
         const yakin = confirm("Apakah kamu yakin ingin menghapus data ini?");
