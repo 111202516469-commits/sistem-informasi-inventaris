@@ -318,6 +318,7 @@ document.getElementById("formBarang").addEventListener("submit", function(event)
     .textContent = "+ Simpan Barang";
 
     tampilkanBarang();
+        
     pesan.textContent = "Perubahan barang berhasil disimpan!";
     return;
     }
@@ -343,6 +344,21 @@ document.getElementById("formBarang").addEventListener("reset", function() {
 
     document.querySelector("#formBarang button[type='submit']")
         .textContent = "+ Simpan Barang";
+});
+
+window.addEventListener("storage", function(event) {
+    if (event.key === "inventarisku_barang") {
+        try {
+            const dataTerbaru = JSON.parse(event.newValue || "[]");
+
+            if (Array.isArray(dataTerbaru)) {
+                barang = dataTerbaru;
+                tampilkanBarang();
+            }
+        } catch (error) {
+            console.error("Gagal membaca data barang:", error);
+        }
+    }
 });
 
 tampilkanBarang();
