@@ -155,10 +155,13 @@ const dataAwal = [
 ];
 
 let barang = JSON.parse(localStorage.getItem("inventarisku_barang") || "null");
+
 if (!Array.isArray(barang)) {
     barang = dataAwal;
     simpanData();
 }
+
+let kodeSedangDiedit = null;
 
 function simpanData() {
     localStorage.setItem("inventarisku_barang", JSON.stringify(barang));
@@ -176,6 +179,7 @@ function tampilkanBarang() {
 
     barang.forEach((item, index) => {
         const baris = document.createElement("tr");
+
         baris.appendChild(buatSel(index + 1));
         baris.appendChild(buatSel(item.kode));
         baris.appendChild(buatSel(item.nama));
@@ -186,11 +190,42 @@ function tampilkanBarang() {
         const aksi = document.createElement("td");
         aksi.className = "aksi";
 
+        // Tombol edit
+        const tombolEdit = document.createElement("button");
+        tombolEdit.textContent = "Edit";
+        tombolEdit.className = "button";
+        tombolEdit.type = "button";
+
+        tombolEdit.onclick = () => {
+            kodeSedangDiedit = item.kode;
+
+            document.getElementById("kode").value = item.kode;
+            document.getElementById("nama").value = item.nama;
+            document.getElementById("kategori").value = item.kategori;
+            document.getElementById("jumlah").value = item.jumlah;
+            document.getElementById("kondisi").value = item.kondisi;
+
+            document.querySelector("#formBarang button[type='submit']")
+                .textContent = "Simpan Perubahan";
+
+            document.getElementById("pesan").textContent =
+                "Mode edit: ubah data barang, lalu klik Simpan Perubahan.";
+
+            document.getElementById("kode").readOnly = true;
+            document.getElementById("nama").focus();
+
+            document.getElementById("formBarang").scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        };
+
+        // Tombol kurangi stok
         const tombolKurang = document.createElement("button");
         tombolKurang.textContent = "− 1";
         tombolKurang.className = "button";
         tombolKurang.type = "button";
-        tombolKurang.title = "Kurangi jumlah satu";
+
         tombolKurang.onclick = () => {
             if (barang[index].jumlah > 1) {
                 barang[index].jumlah--;
@@ -199,31 +234,55 @@ function tampilkanBarang() {
                 document.getElementById("pesan").textContent =
                     "Jumlah barang berhasil dikurangi satu.";
             } else {
-                alert("Jumlah sudah 1. Gunakan Hapus jika ingin menghapus jenis barang.");
+                alert("Jumlah sudah 1. Gunakan Hapus untuk menghapus barang.");
             }
         };
 
+        // Tombol hapus
         const tombolHapus = document.createElement("button");
         tombolHapus.textContent = "Hapus";
         tombolHapus.className = "hapus";
         tombolHapus.type = "button";
+
         tombolHapus.onclick = () => {
-            if (confirm("Yakin ingin menghapus " + barang[index].nama + "?")) {
+            if (confirm("Yakin ingin menghapus " + item.nama + "?")) {
                 barang.splice(index, 1);
                 simpanData();
+
+                if (kodeSedangDiedit === item.kode) {
+                    batalkanEdit();
+                }
+
                 tampilkanBarang();
                 document.getElementById("pesan").textContent =
                     "Data barang berhasil dihapus.";
             }
         };
 
-        aksi.append(tombolKurang, document.createTextNode(" "), tombolHapus);
+        aksi.append(
+            tombolEdit,
+            document.createTextNode(" "),
+            tombolKurang,
+            document.createTextNode(" "),
+            tombolHapus
+        );
+
         baris.appendChild(aksi);
         tabel.appendChild(baris);
     });
 
     document.getElementById("totalBarang").textContent =
         "Total barang: " + barang.length + " jenis";
+}
+
+function batalkanEdit() {
+    kodeSedangDiedit = null;
+
+    document.getElementById("formBarang").reset();
+    document.getElementById("kode").readOnly = false;
+
+    document.querySelector("#formBarang button[type='submit']")
+        .textContent = "+ Simpan Barang";
 }
 
 document.getElementById("formBarang").addEventListener("submit", function(event) {
@@ -236,14 +295,33 @@ document.getElementById("formBarang").addEventListener("submit", function(event)
     const kondisi = document.getElementById("kondisi").value;
     const pesan = document.getElementById("pesan");
 
-    if (barang.some(item => item.kode.toLowerCase() === kode.toLowerCase())) {
-        pesan.textContent = "Kode barang sudah digunakan. Gunakan kode lain.";
+    if (!kode || !nama || !kategori || !kondisi ||
+        !Number.isInteger(jumlah) || jumlah < 1) {
+        pesan.textContent = "Periksa kembali semua isian. Jumlah minimal 1.";
         return;
     }
 
-    if (!kode || !nama || !kategori || !kondisi ||
-        !Number.isInteger(jumlah) || jumlah < 1) {
-        pesan.textContent = "Periksa kembali semua isian.";
+    if (kodeSedangDiedit !== null) {
+        const index = barang.findIndex(
+            item => item.kode === kodeSedangDiedit
+        );
+
+        if (index !== -1) {
+            barang[index] = {kode, nama, kategori, jumlah, kondisi};
+        }
+
+        simpanData();
+        batalkanEdit();
+        tampilkanBarang();
+
+        pesan.textContent = "Perubahan data barang berhasil disimpan!";
+        return;
+    }
+
+    if (barang.some(
+        item => item.kode.toLowerCase() === kode.toLowerCase()
+    )) {
+        pesan.textContent = "Kode barang sudah digunakan. Gunakan kode lain.";
         return;
     }
 
@@ -251,7 +329,16 @@ document.getElementById("formBarang").addEventListener("submit", function(event)
     simpanData();
     tampilkanBarang();
     this.reset();
+
     pesan.textContent = "Barang berhasil ditambahkan!";
+});
+
+document.getElementById("formBarang").addEventListener("reset", function() {
+    kodeSedangDiedit = null;
+    document.getElementById("kode").readOnly = false;
+
+    document.querySelector("#formBarang button[type='submit']")
+        .textContent = "+ Simpan Barang";
 });
 
 tampilkanBarang();
