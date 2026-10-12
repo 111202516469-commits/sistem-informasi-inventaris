@@ -1,447 +1,87 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard - InventarisKu</title>
-
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/theme.css">
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f1f5f9;
-            color: #1e293b;
-        }
-
-        .layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 250px;
-            flex-shrink: 0;
-            background: #172554;
-            color: white;
-            padding: 25px 16px;
-        }
-
-        .brand {
-            font-size: 23px;
-            font-weight: bold;
-            margin: 0 10px 35px;
-        }
-
-        .sidebar p {
-            color: #a5b4fc;
-            font-size: 12px;
-            margin: 20px 12px 10px;
-            text-transform: uppercase;
-        }
-
-        .sidebar a {
-            display: block;
-            color: #dbeafe;
-            text-decoration: none;
-            padding: 13px 14px;
-            margin-bottom: 6px;
-            border-radius: 8px;
-            transition: .2s;
-        }
-
-        .sidebar a:hover,
-        .sidebar a.active {
-            background: #2563eb;
-            color: white;
-        }
-
-        .main-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .topbar {
-            background: white;
-            padding: 20px 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            flex-wrap: wrap;
-            box-shadow: 0 2px 8px #0f172a0a;
-        }
-
-        .topbar h2 {
-            margin: 0;
-            font-size: 22px;
-        }
-
-        #tanggalWaktu {
-            color: #64748b;
-            font-size: 13px;
-            text-align: right;
-        }
-
-        .content {
-            padding: 28px;
-        }
-
-        .welcome {
-            background: linear-gradient(120deg, #1d4ed8, #3b82f6);
-            color: white;
-            padding: 28px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-        }
-
-        .welcome h1 {
-            font-size: 27px;
-            margin: 0 0 10px;
-        }
-
-        .welcome p {
-            margin: 0;
-            line-height: 1.7;
-            color: #eff6ff;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 23px;
-            border-radius: 14px;
-            box-shadow: 0 4px 15px #0f172a0a;
-            border: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .stat-icon {
-            width: 58px;
-            height: 58px;
-            border-radius: 13px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 27px;
-            flex-shrink: 0;
-        }
-
-        .blue { background: #dbeafe; }
-        .green { background: #dcfce7; }
-        .orange { background: #ffedd5; }
-        .purple { background: #f3e8ff; }
-
-        .stat-info p {
-            margin: 0 0 8px;
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        .stat-info h2 {
-            font-size: 30px;
-            margin: 0;
-            color: #0f172a;
-        }
-
-        .panel {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 24px;
-            margin-top: 25px;
-        }
-
-        .panel h3 {
-            margin: 0 0 10px;
-        }
-
-        .panel p {
-            color: #64748b;
-            line-height: 1.7;
-        }
-
-        .quick-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 18px;
-        }
-
-        .quick-links a {
-            display: inline-block;
-            background: #eff6ff;
-            color: #1d4ed8;
-            text-decoration: none;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .quick-links a:hover {
-            background: #dbeafe;
-        }
-
-        .menu-toggle {
-            display: none;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 7px;
-            padding: 10px 13px;
-            cursor: pointer;
-        }
-
-        .note {
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 18px;
-        }
-
-        @media (max-width: 800px) {
-            .layout {
-                display: block;
-            }
-
-            .sidebar {
-                width: 100%;
-                padding: 16px;
-            }
-
-            .brand {
-                margin: 0 0 15px;
-            }
-
-            .sidebar p {
-                margin-top: 12px;
-            }
-
-            .sidebar a {
-                display: inline-block;
-                margin: 3px;
-                padding: 10px;
-                font-size: 13px;
-            }
-
-            .content {
-                padding: 18px;
-            }
-
-            .topbar {
-                padding: 18px;
-            }
-
-            .menu-toggle {
-                display: inline-block;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .welcome h1 {
-                font-size: 23px;
-            }
-
-            #tanggalWaktu {
-                text-align: left;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .stat-card {
-                padding: 16px;
-                gap: 12px;
-            }
-
-            .stat-icon {
-                width: 46px;
-                height: 46px;
-                font-size: 22px;
-            }
-
-            .stat-info h2 {
-                font-size: 25px;
-            }
-        }
-
-        .sidebar-hidden .sidebar {
-            display: none;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistem Inventaris</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-
 <body>
-<div class="layout">
 
-    <aside class="sidebar">
-        <div class="brand">📦 InventarisKu</div>
+    <div class="layout">
 
-        <p>Menu Utama</p>
-        <a href="dashboard.html" class="active">🏠 Dashboard</a>
-        <a href="kategori.html">🏷️ Kategori Barang</a>
-        <a href="barang.html">📦 Data Barang</a>
-        <a href="peminjaman.html">📋 Peminjaman</a>
-        <a href="pengguna.html">👥 Pengguna</a>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>⬡ InventarisKu</h2>
 
-        <p>Akun</p>
-        <a href="login.html">↩ Logout</a>
-    </aside>
+            <nav>
+                <a href="dashboard.html" class="active">⌂ Dashboard</a>
+                <a href="kategori.html">▤ Kategori Barang</a>
+                <a href="barang.html">▣ Data Barang</a>
+                <a href="peminjaman.html">◷ Peminjaman</a>
+                <a href="pengguna.html">♙ Pengguna</a>
+                <a href="login.html" class="logout">⇥ Logout</a>
+            </nav>
+        </aside>
 
-    <main class="main-content">
-        <header class="topbar">
-            <div>
-                <button class="menu-toggle" id="menuToggle">☰ Menu</button>
-                <h2 style="margin-top:8px;">Dashboard</h2>
-            </div>
-            <div id="tanggalWaktu">Memuat tanggal dan waktu...</div>
-        </header>
+        <!-- Konten utama -->
+        <main class="main-content">
 
-        <section class="content">
-            <div class="welcome">
-                <h1>Selamat Datang di InventarisKu! 👋</h1>
-                <p>
-                    Pantau persediaan, barang pinjaman, dan pengembalian
-                    inventaris dalam satu halaman.
-                </p>
-            </div>
+            <header class="topbar">
+                <button type="button" id="menuToggle"
+                    aria-label="Tampilkan atau sembunyikan menu">☰</button>
+                <span>Admin ▾</span>
+            </header>
 
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-icon blue">📦</div>
-                    <div class="stat-info">
-                        <p>Total Barang</p>
-                        <h2 id="totalBarang">0</h2>
+            <section class="content">
+                <div class="welcome">
+                    <h1>Selamat Datang, Admin</h1>
+                    <p>Kelola data inventaris dan peminjaman barang dengan mudah.</p>
+                    <p id="tanggalWaktu"></p>
+                </div>
+
+                <!-- Ringkasan data -->
+                <div class="stats">
+                    <div class="stat-card blue">
+                        <h3>Total Barang</h3>
+                        <p>50</p>
+                    </div>
+
+                    <div class="stat-card green">
+                        <h3>Barang Tersedia</h3>
+                        <p>38</p>
+                    </div>
+
+                    <div class="stat-card orange">
+                        <h3>Sedang Dipinjam</h3>
+                        <p>12</p>
+                    </div>
+
+                    <div class="stat-card purple">
+                        <h3>Total Peminjaman</h3>
+                        <p>25</p>
                     </div>
                 </div>
 
-                <div class="stat-card">
-                    <div class="stat-icon green">✅</div>
-                    <div class="stat-info">
-                        <p>Barang Tersedia</p>
-                        <h2 id="barangTersedia">0</h2>
-                    </div>
-                </div>
+                <!-- Informasi tambahan -->
+                <section class="panel">
+                    <h2>Aktivitas Inventaris</h2>
+                    <p>Selamat bekerja! Silakan pilih menu di sebelah kiri
+                    untuk mengelola data inventaris.</p>
 
-                <div class="stat-card">
-                    <div class="stat-icon orange">📤</div>
-                    <div class="stat-info">
-                        <p>Barang Pinjaman</p>
-                        <h2 id="barangPinjaman">0</h2>
-                    </div>
-                </div>
+                    <a class="button" href="barang.html">
+                        Lihat Data Barang
+                    </a>
 
-                <div class="stat-card">
-                    <div class="stat-icon purple">📥</div>
-                    <div class="stat-info">
-                        <p>Pengembalian Barang</p>
-                        <h2 id="pengembalianBarang">0</h2>
-                    </div>
-                </div>
-            </div>
+                    <a class="button" href="peminjaman.html">
+                        Lihat Peminjaman
+                    </a>
+                </section>
+            </section>
+        </main>
+    </div>
 
-            <div class="panel">
-                <h3>📊 Ringkasan Inventaris</h3>
-                <p>
-                    Gunakan menu di samping untuk mengelola data barang,
-                    kategori, peminjaman, dan pengguna.
-                </p>
+    <script src="../assets/js/script.js"></script>
 
-                <div class="quick-links">
-                    <a href="barang.html">+ Kelola Barang</a>
-                    <a href="kategori.html">+ Kelola Kategori</a>
-                    <a href="peminjaman.html">+ Data Peminjaman</a>
-                    <a href="pengguna.html">+ Data Pengguna</a>
-                </div>
-
-                <div class="note" id="catatanData">
-                    Ringkasan dihitung dari data yang tersimpan di browser ini.
-                </div>
-            </div>
-        </section>
-    </main>
-</div>
-
-<script src="../assets/js/script.js"></script>
-<script>
-    function hitungDashboard() {
-        let barang = [];
-        let peminjaman = [];
-
-        try {
-            barang = JSON.parse(
-                localStorage.getItem("inventarisku_barang")
-            ) || [];
-
-            peminjaman = JSON.parse(
-                localStorage.getItem("inventarisku_peminjaman")
-            ) || [];
-
-            if (!Array.isArray(barang)) barang = [];
-            if (!Array.isArray(peminjaman)) peminjaman = [];
-        } catch (error) {
-            barang = [];
-            peminjaman = [];
-        }
-
-        const total = barang.reduce(function(total, item) {
-            return total + (Number(item.jumlah) || 0);
-        }, 0);
-
-        let pinjaman = 0;
-        let pengembalian = 0;
-
-        peminjaman.forEach(function(item) {
-            const jumlah = Number(item.jumlah) || 0;
-            const status = String(
-                item.statusPengembalian || item.status || ""
-            ).toLowerCase();
-
-            if (
-                status.includes("kembali") ||
-                status.includes("dikembalikan")
-            ) {
-                pengembalian += jumlah;
-            } else {
-                pinjaman += jumlah;
-            }
-        });
-
-        const tersedia = Math.max(0, total - pinjaman);
-
-        document.getElementById("totalBarang").textContent = total;
-        document.getElementById("barangTersedia").textContent = tersedia;
-        document.getElementById("barangPinjaman").textContent = pinjaman;
-        document.getElementById("pengembalianBarang").textContent =
-            pengembalian;
-    }
-
-    hitungDashboard();
-
-    window.addEventListener("storage", hitungDashboard);
-
-    const tombolMenu = document.getElementById("menuToggle");
-    if (tombolMenu) {
-        tombolMenu.addEventListener("click", function() {
-            document.querySelector(".layout")
-                .classList.toggle("sidebar-hidden");
-        });
-    }
-</script>
 </body>
 </html>
