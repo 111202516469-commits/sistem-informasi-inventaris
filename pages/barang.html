@@ -238,7 +238,6 @@ function tampilkanBarang() {
             }
         };
 
-        // Tombol hapus
         const tombolHapus = document.createElement("button");
         tombolHapus.textContent = "Hapus";
         tombolHapus.className = "hapus";
@@ -306,16 +305,21 @@ document.getElementById("formBarang").addEventListener("submit", function(event)
             item => item.kode === kodeSedangDiedit
         );
 
-        if (index !== -1) {
-            barang[index] = {kode, nama, kategori, jumlah, kondisi};
-        }
+       if (index !== -1) {
+    barang[index] = {kode, nama, kategori, jumlah, kondisi};
+    }
 
-        simpanData();
-        batalkanEdit();
-        tampilkanBarang();
+    simpanData();
+    kodeSedangDiedit = null;
+    document.getElementById("formBarang").reset();
+    document.getElementById("kode").readOnly = false;
 
-        pesan.textContent = "Perubahan data barang berhasil disimpan!";
-        return;
+    document.querySelector("#formBarang button[type='submit']")
+    .textContent = "+ Simpan Barang";
+
+    tampilkanBarang();
+    pesan.textContent = "Perubahan barang berhasil disimpan!";
+    return;
     }
 
     if (barang.some(
