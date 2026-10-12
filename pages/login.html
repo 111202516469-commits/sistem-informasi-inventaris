@@ -177,10 +177,13 @@
                 return;
             }
 
-            pesan.style.color = "#176b3a";
-            pesan.textContent =
-                "Validasi berhasil. Halaman ini masih berupa demo login.";
-        });
-    </script>
+           if (username === "admin" && password === "admin123") {
+    window.location.href = "dashboard.html";
+    } else {
+    pesan.style.color = "#dc2626";
+    pesan.textContent = "Username atau password salah!";
+    }
+    });
+</script>
 </body>
 </html>
