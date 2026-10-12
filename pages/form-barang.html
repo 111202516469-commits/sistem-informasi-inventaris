@@ -3,232 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Barang - InventarisKu</title>
-
+    <title>Data Barang - InventarisKu</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/theme.css">
-
-    <style>
-        .layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 240px;
-            flex-shrink: 0;
-            padding: 25px 16px;
-        }
-
-        .sidebar h2 {
-            color: white;
-            margin: 0 0 28px;
-        }
-
-        .sidebar a {
-            display: block;
-            padding: 12px 14px;
-            margin-bottom: 8px;
-            border-radius: 9px;
-            color: white;
-        }
-
-        .sidebar a.active,
-        .sidebar a:hover {
-            background: #2563eb;
-        }
-
-        .main {
-            flex: 1;
-            min-width: 0;
-            padding: 32px;
-        }
-
-        .form-card {
-            max-width: 760px;
-            margin-top: 24px;
-            padding: 28px;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 24px;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-
-        @media (max-width: 700px) {
-            .layout {
-                display: block;
-            }
-
-            .sidebar {
-                width: 100%;
-                padding: 16px;
-            }
-
-            .sidebar h2 {
-                margin-bottom: 12px;
-            }
-
-            .main {
-                padding: 18px;
-            }
-
-            .form-card {
-                padding: 18px;
-            }
-        }
-    </style>
 </head>
-
 <body>
-<div class="layout">
+    <div class="layout">
 
-    <aside class="sidebar">
-        <h2>📦 InventarisKu</h2>
+        <aside class="sidebar">
+            <h2>⬡ InventarisKu</h2>
+            <nav>
+                <a href="dashboard.html">⌂ Dashboard</a>
+                <a href="kategori.html">▤ Kategori Barang</a>
+                <a href="barang.html" class="active">▣ Data Barang</a>
+                <a href="peminjaman.html">◷ Peminjaman</a>
+                <a href="pengguna.html">♙ Pengguna</a>
+                <a href="login.html" class="logout">⇥ Logout</a>
+            </nav>
+        </aside>
 
-        <a href="dashboard.html">🏠 Dashboard</a>
-        <a href="kategori.html">📁 Kategori Barang</a>
-        <a href="barang.html" class="active">📦 Data Barang</a>
-        <a href="peminjaman.html">🔄 Peminjaman</a>
-        <a href="pengguna.html">👥 Pengguna</a>
-        <a href="login.html">🚪 Keluar</a>
-    </aside>
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" id="menuToggle">☰</button>
+                <span>Admin ▾</span>
+            </header>
 
-    <main class="main">
-        <a class="back-link" href="barang.html">← Kembali ke Data Barang</a>
-
-        <h1>Form Tambah Barang</h1>
-        <p>Isi informasi barang yang ingin ditambahkan ke inventaris.</p>
-
-        <section class="form-card">
-            <form id="formBarang">
-                <div class="form-group">
-                    <label for="kode">Kode Barang</label>
-                    <input type="text" id="kode" required
-                           placeholder="Contoh: BRG006">
+            <section class="content">
+                <div class="welcome">
+                    <h1>Data Barang</h1>
+                    <p>Kelola seluruh barang inventaris yang tersedia.</p>
+                    <p id="tanggalWaktu"></p>
                 </div>
 
-                <div class="form-group">
-                    <label for="nama">Nama Barang</label>
-                    <input type="text" id="nama" required
-                           placeholder="Masukkan nama barang">
-                </div>
+                <section class="panel">
+                    <div class="page-actions">
+                        <h2>Daftar Inventaris Barang</h2>
+                        <a href="form-barang.html" class="button">
+                            + Tambah Barang
+                        </a>
+                    </div>
 
-                <div class="form-group">
-                    <label for="kategori">Kategori Barang</label>
-                    <input type="text" id="kategori" required
-                           placeholder="Contoh: Elektronik">
-                </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Kode Barang</th>
+                                    <th>Nama Barang</th>
+                                    <th>Kategori</th>
+                                    <th>Jumlah</th>
+                                    <th>Kondisi</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
 
-                <div class="form-group">
-                    <label for="jumlah">Jumlah Barang</label>
-                    <input type="number" id="jumlah" required
-                           min="1" step="1" placeholder="Masukkan jumlah">
-                </div>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>BRG001</td>
+                                    <td>Laptop Lenovo</td>
+                                    <td>Elektronik</td>
+                                    <td>10</td>
+                                    <td>Baik</td>
+                                    <td><span class="status tersedia">Tersedia</span></td>
+                                    <td>
+                                        <a href="form-barang.html" class="button">Edit</a>
+                                        <button type="button"
+                                            class="button btn-hapus"
+                                            onclick="hapusContoh(this)">Hapus</button>
+                                    </td>
+                                </tr>
 
-                <div class="form-group">
-                    <label for="lokasi">Lokasi Penyimpanan</label>
-                    <input type="text" id="lokasi"
-                           placeholder="Contoh: Ruang Laboratorium">
-                </div>
+                                <tr>
+                                    <td>2</td>
+                                    <td>BRG002</td>
+                                    <td>Proyektor Epson</td>
+                                    <td>Elektronik</td>
+                                    <td>5</td>
+                                    <td>Baik</td>
+                                    <td><span class="status tersedia">Tersedia</span></td>
+                                    <td>
+                                        <a href="form-barang.html" class="button">Edit</a>
+                                        <button type="button"
+                                            class="button btn-hapus"
+                                            onclick="hapusContoh(this)">Hapus</button>
+                                    </td>
+                                </tr>
 
-                <div class="form-group">
-                    <label for="keterangan">Keterangan</label>
-                    <textarea id="keterangan"
-                              placeholder="Keterangan tambahan (opsional)"></textarea>
-                </div>
+                                <tr>
+                                    <td>3</td>
+                                    <td>BRG003</td>
+                                    <td>Kursi Kantor</td>
+                                    <td>Furniture</td>
+                                    <td>20</td>
+                                    <td>Baik</td>
+                                    <td><span class="status dipinjam">Sebagian Dipinjam</span></td>
+                                    <td>
+                                        <a href="form-barang.html" class="button">Edit</a>
+                                        <button type="button"
+                                            class="button btn-hapus"
+                                            onclick="hapusContoh(this)">Hapus</button>
+                                    </td>
+                                </tr>
 
-                <div class="form-actions">
-                    <button type="submit">💾 Simpan Barang</button>
-                    <a class="btn btn-secondary" href="barang.html">
-                        Batal
-                    </a>
-                </div>
+                                <tr>
+                                    <td>4</td>
+                                    <td>BRG004</td>
+                                    <td>Keyboard</td>
+                                    <td>Aksesoris</td>
+                                    <td>15</td>
+                                    <td>Baik</td>
+                                    <td><span class="status tersedia">Tersedia</span></td>
+                                    <td>
+                                        <a href="form-barang.html" class="button">Edit</a>
+                                        <button type="button"
+                                            class="button btn-hapus"
+                                            onclick="hapusContoh(this)">Hapus</button>
+                                    </td>
+                                </tr>
 
-                <p id="pesan" role="status"></p>
-            </form>
-        </section>
-    </main>
+                                <tr>
+                                    <td>5</td>
+                                    <td>BRG005</td>
+                                    <td>Mouse Wireless</td>
+                                    <td>Aksesoris</td>
+                                    <td>12</td>
+                                    <td>Baik</td>
+                                    <td><span class="status tersedia">Tersedia</span></td>
+                                    <td>
+                                        <a href="form-barang.html" class="button">Edit</a>
+                                        <button type="button"
+                                            class="button btn-hapus"
+                                            onclick="hapusContoh(this)">Hapus</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-</div>
+                    <p class="note">
+                        Catatan: data di atas merupakan data contoh untuk tampilan
+                        awal dan belum tersimpan ke database.
+                    </p>
+                </section>
+            </section>
+        </main>
+    </div>
 
-<script>
-document.getElementById("formBarang").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    const kode = document.getElementById("kode").value.trim();
-    const nama = document.getElementById("nama").value.trim();
-    const kategori = document.getElementById("kategori").value.trim();
-    const jumlah = Number(document.getElementById("jumlah").value);
-    const lokasi = document.getElementById("lokasi").value.trim();
-    const keterangan = document.getElementById("keterangan").value.trim();
-    const pesan = document.getElementById("pesan");
-
-    if (!Number.isInteger(jumlah) || jumlah < 1) {
-        pesan.style.color = "#dc2626";
-        pesan.textContent = "Jumlah barang harus berupa bilangan bulat minimal 1.";
-        return;
-    }
-
-    let daftarBarang = [];
-
-    try {
-        daftarBarang = JSON.parse(
-            localStorage.getItem("inventarisku_barang") || "[]"
-        );
-
-        if (!Array.isArray(daftarBarang)) {
-            daftarBarang = [];
+    <script src="../assets/js/script.js"></script>
+    <script>
+        function hapusContoh(tombol) {
+            if (confirm("Yakin ingin menghapus baris contoh ini?")) {
+                tombol.closest("tr").remove();
+            }
         }
-    } catch (error) {
-        pesan.style.color = "#dc2626";
-        pesan.textContent = "Data barang tidak dapat dibaca. Periksa penyimpanan browser.";
-        return;
-    }
-
-    const kodeSudahAda = daftarBarang.some(
-        barang => String(barang.kode || "").toLowerCase() === kode.toLowerCase()
-    );
-
-    if (kodeSudahAda) {
-        pesan.style.color = "#dc2626";
-        pesan.textContent = "Kode barang sudah digunakan. Gunakan kode lain.";
-        return;
-    }
-
-    daftarBarang.push({
-        kode: kode,
-        nama: nama,
-        kategori: kategori,
-        jumlah: jumlah,
-        lokasi: lokasi,
-        keterangan: keterangan
-    });
-
-    try {
-        localStorage.setItem(
-            "inventarisku_barang",
-            JSON.stringify(daftarBarang)
-        );
-    } catch (error) {
-        pesan.style.color = "#dc2626";
-        pesan.textContent = "Gagal menyimpan data di browser.";
-        return;
-    }
-
-    window.location.href = "barang.html";
-});
-</script>
+    </script>
 </body>
 </html>
