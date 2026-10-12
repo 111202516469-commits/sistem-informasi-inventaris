@@ -1,0 +1,315 @@
+/* InventarisKu - Tema Global Biru Putih
+   Pasang file ini sebagai assets/css/style.css
+   Semua halaman memakai tema navy, biru, putih, dan abu-abu kebiruan.
+*/
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #dbeafe;
+  --navy: #172554;
+  --navy-2: #1e3a8a;
+  --page-bg: #f1f5f9;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #dbe4f0;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #d97706;
+  --radius: 14px;
+  --shadow: 0 4px 15px rgba(15, 23, 42, .06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--page-bg);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Header dan navigasi umum */
+header, .topbar, .navbar, .header {
+  background: var(--surface);
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, .03);
+}
+
+.brand, .logo, .site-title {
+  color: var(--navy);
+  font-weight: 800;
+}
+
+nav a, .nav-link {
+  transition: background .2s ease, color .2s ease;
+}
+
+nav a:hover, .nav-link:hover {
+  color: var(--primary-dark);
+}
+
+/* Sidebar yang dipakai halaman admin */
+.sidebar, aside.sidebar, .side-menu {
+  background: var(--navy);
+  color: #fff;
+}
+
+.sidebar a, aside.sidebar a, .side-menu a {
+  display: block;
+  color: #f8fafc;
+  border-radius: 10px;
+  transition: background .2s ease, color .2s ease;
+}
+
+.sidebar a:hover, aside.sidebar a:hover, .side-menu a:hover,
+.sidebar a.active, aside.sidebar a.active, .side-menu a.active {
+  color: #fff;
+  background: var(--primary);
+}
+
+/* Area utama dan judul */
+main, .main-content, .content, .page-content {
+  min-width: 0;
+}
+
+h1, h2, h3, h4 {
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.page-title, .content-title {
+  margin-top: 0;
+  font-weight: 800;
+}
+
+/* Panel, kartu, ringkasan, formulir, tabel */
+.card, .panel, .stat-card, .form-card, .table-card,
+.content-card, .summary-card, .box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.stat-card, .card {
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.stat-card:hover, .card:hover {
+  box-shadow: 0 8px 22px rgba(37, 99, 235, .09);
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #334155;
+  font-weight: 600;
+}
+
+input, select, textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  font: inherit;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, .13);
+}
+
+/* Tombol */
+button, .btn, input[type="submit"], input[type="button"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 10px 16px;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 9px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+button:hover, .btn:hover, input[type="submit"]:hover, input[type="button"]:hover {
+  color: #fff;
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, .18);
+}
+
+button:active, .btn:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary, .secondary, button.secondary {
+  color: #1e40af;
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.btn-secondary:hover, .secondary:hover, button.secondary:hover {
+  color: #1e40af;
+  background: #dbeafe;
+  border-color: #93c5fd;
+}
+
+.btn-danger, .danger, button.danger {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.btn-success, .success, button.success {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+/* Tabel */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+thead th {
+  color: #1e3a8a;
+  background: #eff6ff;
+  font-weight: 800;
+}
+
+th, td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+tbody tr:hover {
+  background: #f8fbff;
+}
+
+/* Pesan status/validasi */
+.alert, .message, .pesan, .status-message {
+  padding: 11px 14px;
+  border-radius: 9px;
+}
+
+.alert-success, .message.success {
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.alert-error, .alert-danger, .message.error {
+  color: #991b1b;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+/* Beranda publik */
+.hero {
+  color: #fff;
+  background: linear-gradient(120deg, #1d4ed8, #3b82f6);
+  border-radius: 18px;
+}
+
+.hero h1, .hero h2, .hero p {
+  color: #fff;
+}
+
+.feature-card, .product-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+footer {
+  color: var(--muted);
+}
+
+/* Biar tabel dapat digeser di layar kecil */
+.table-responsive, .table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+/* Responsif */
+@media (max-width: 900px) {
+  .main-content, .content, .page-content {
+    padding: 20px !important;
+  }
+
+  .stats-grid, .cards-grid, .dashboard-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  .main-content, .content, .page-content {
+    padding: 14px !important;
+  }
+
+  .stats-grid, .cards-grid, .dashboard-cards {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero {
+    padding: 22px !important;
+  }
+
+  th, td {
+    padding: 9px 10px;
+    white-space: nowrap;
+  }
+
+  button, .btn {
+    max-width: 100%;
+  }
+}
